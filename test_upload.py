@@ -2,12 +2,8 @@ import boto3
 
 def upload_file():
     bucket_name = "my-example-bucket"   # change me
-    file_name = "local_test.txt"
-    object_name = "data/sample_data.json"
-    
-    # Write a simple file
-    with open(file_name, "w") as f:
-        f.write("Hello from test_upload.py!\n")
+    file_name = "./data/sample_data.json"
+    object_name = "upload/sample_data.json"
     
     s3 = boto3.client("s3")
     s3.upload_file(file_name, bucket_name, object_name)
