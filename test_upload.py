@@ -3,7 +3,7 @@ import boto3
 def upload_file():
     bucket_name = "my-example-bucket"   # change me
     file_name = "local_test.txt"
-    object_name = "teaching_demo/hello.txt"
+    object_name = "data/sample_data.json"
     
     # Write a simple file
     with open(file_name, "w") as f:
