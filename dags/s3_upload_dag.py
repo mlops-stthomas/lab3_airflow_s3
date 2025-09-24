@@ -3,14 +3,11 @@ from airflow.utils.dates import days_ago
 from airflow.operators.python import PythonOperator
 import boto3
 
-BUCKET_NAME = "my-example-bucket"   # change me
-UPLOAD_KEY = "airflow_demo/hello.txt"
+BUCKET_NAME = "st-mlops-fall-2025"   # change me
+UPLOAD_KEY = "./upload/sample_data.json"
 
 def upload_file_to_s3():
-    file_name = "/tmp/airflow_demo.txt"
-
-    with open(file_name, "w") as f:
-        f.write("Hello from Airflow DAG!\n")
+    file_name = "./data/sample_data.json"
 
     s3 = boto3.client("s3")
     s3.upload_file(file_name, BUCKET_NAME, UPLOAD_KEY)
@@ -40,10 +37,10 @@ with DAG(
         task_id="upload_to_s3",
         python_callable=upload_file_to_s3,
     )
-
+    
     download_task = PythonOperator(
         task_id="download_from_s3",
         python_callable=download_file_from_s3,
     )
-
+    
     upload_task >> download_task  # ensure download happens after upload
